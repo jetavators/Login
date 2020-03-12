@@ -5,11 +5,11 @@ def login():
   file = open(f'{username}.json')
   user_dict = json.load(file)
   username = username.encode('utf-8')
-  userhash = hashlib.sha256(username).hexdigest()
+  userhash = hashlib.sha512(username).hexdigest()
   if(userhash == user_dict['username']):
     password = getpass.getpass("Password: ")
     password = password.encode('utf-8')
-    passhash = hashlib.sha256(password).hexdigest()
+    passhash = hashlib.sha512(password).hexdigest()
     if(passhash == user_dict['password']):
       print("Logged in...\n")
       time.sleep(0.25)
@@ -31,8 +31,8 @@ def new_user():
       with open(f'{username}.json', 'w+') as file:
         username = username.encode('utf-8')
         password = password.encode('utf-8')
-        userhash = hashlib.sha256(username).hexdigest()
-        passhash = hashlib.sha256(password).hexdigest()
+        userhash = hashlib.sha512(username).hexdigest()
+        passhash = hashlib.sha512(password).hexdigest()
 
         user_json = {
         'username': userhash,
