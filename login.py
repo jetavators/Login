@@ -55,7 +55,7 @@ def menu():
     new_user()
 
 def clear():
-    os.system("clear")
+    os.system("cls") #clear for bash - otherwise keep cls for Windows
     
 #start program
 menu()
