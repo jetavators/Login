@@ -2,7 +2,10 @@ import json, hashlib, os, time, sys, getpass
 
 def login():
   username = input("Username: ")
-  file = open(f'{username}.json')
+  userhashfilename = username.encode('utf-8')
+  userhashfilename = hashlib.sha512(userhashfilename).hexdigest()
+
+  file = open(f'users/{userhashfilename}.json')
   user_dict = json.load(file)
   username = username.encode('utf-8')
   userhash = hashlib.sha512(username).hexdigest()
@@ -24,11 +27,13 @@ def login():
 
 def new_user():
   username = input("Username: ")
+  userhashfilename = username.encode('utf-8')
+  userhashfilename = hashlib.sha512(userhashfilename).hexdigest()
 
-  if(os.path.exists(f'{username}.json') != True):
+  if(os.path.exists(f'users/{userhashfilename}.json') != True):
     password = getpass.getpass("Password: ")
     if(username != '' and password != ''):
-      with open(f'{username}.json', 'w+') as file:
+      with open(f'users/{userhashfilename}.json', 'w+') as file:
         username = username.encode('utf-8')
         password = password.encode('utf-8')
         userhash = hashlib.sha512(username).hexdigest()
@@ -55,7 +60,7 @@ def menu():
     new_user()
 
 def clear():
-    os.system("cls") #clear for bash - otherwise keep cls for Windows
+    os.system("cls")
     
 #start program
 menu()
